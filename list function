@@ -1,0 +1,6 @@
+list=[12345,'Johan', 'CS566']
+list.insert(3, 'E')
+list
+#[12345, 'Johan', 'CS566', 'E']
+
+list
