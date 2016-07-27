@@ -1,0 +1,12 @@
+#!/usr/bin/python
+
+def find(word,letter):
+        index= 0
+        while index <len(word):
+                if word[index] == letter:
+                        return index
+                index = index + 1
+        return -1
+word=raw_input("Please enter the word that you want to search for:)
+letter=raw_input("Please enter the letter that you want to search for:)
+find(word,letter)
