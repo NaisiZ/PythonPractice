@@ -1,18 +1,24 @@
-def main():
-n = input("Please enter a number:")
-is_prime(n)
+#!/usr/bin/python
 
-def is_prime(a):
-    x = True 
-    for i in (2, a):
-            while x:
-               if a%i == 0:
-                   x = False
-               else:
-                   x = True
+# prime numbers are greater than 1
+if num > 1:
+   # check for factors
+   for i in range(2,num):
+       if (num % i) == 0:
+           print(num,"is not a prime number")
+           break
+   else:
+       print(num,"is a prime number")
 
-
-    if x:
-        print "prime"
+# if input number is less than
+# or equal to 1, it is not prime
+else:
+   print(num,"is not a prime number")print "prime"
     else:
         print "not prime"
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+
