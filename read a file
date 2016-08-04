@@ -1,0 +1,16 @@
+#ready having a file called "taghu.txt" which contains text "Hello, World!"
+#new file name: read_a_file
+#!/usr/bin/python
+obj1=open("taghu.txt","r") #"r" for read, "w" for write, "a" for append
+s=obj1.read()#if s=obj1.read(20) that will read only the first 20 letters
+print s
+obj1.close()
+
+#!/usr/bin/python
+obj1=open("taghu.txt","w") #"w" for write the below line "Welcome to the world of Python" to the file taghu.txt ##"w" WILL overwrite privious content
+obj.write("Welcome to the world of Python")
+obj.close()
+obj1=open(abcde.txt","r")
+s=obj1.read()
+print s
+obj1.close()
