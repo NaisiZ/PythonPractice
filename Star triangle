@@ -1,0 +1,5 @@
+or k in range(1,n 1): # loop for k = 1, 2, 3, ..., n 
+  stars = "" 
+  for i in range(k): # loop k times, not caring about i 
+     stars = stars "*" 
+  print stars
