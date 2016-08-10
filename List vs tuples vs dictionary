@@ -1,0 +1,25 @@
+s='abc' #string
+t=[0,1,2] #list
+zip(s,t)
+#[('a',0),('b',1),('c',2)] #this is a list of tuples: each of ('a',0),('b',1)and('c',2) is a tuple
+
+#If the sequences are not the same length, the result has 
+
+t=[('a',0),('b',1),('c',2)]
+for letter, number in t:
+  
+#to check if t1[i]==t2[i]:  
+def has_match(t1,t2):
+  for x,y in zip(t1,t2):
+    if x == y:
+      return True
+  return False
+  
+d={'a':0, 'b':1, 'c':2} #a,b,c are keys; 0,1,2 are values
+t=d.items()
+print t
+#[('a',0),('c',2'),('b',1)]
+
+d=dict(zip('abc',range(3)))
+print d
+{'a':0,'c':2,'b':1} #result is unsorted
