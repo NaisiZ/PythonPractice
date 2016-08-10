@@ -1,0 +1,9 @@
+  t= divmod(7,3)
+  print t
+  #(2,1)
+  
+  quot, rem= divmod (7,3)
+  print quot
+  # 2
+  print rem
+  # 1
