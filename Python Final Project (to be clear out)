@@ -1,0 +1,140 @@
+#!/usr/bin/python
+import os, sys
+import argparse
+import os.path
+import re
+import fileinput
+import shutil
+#Arguments that are needs when execute the code
+parser = argparse.ArgumentParser()
+parser.add_argument('-t', action='store',dest="tech")
+parser.add_argument('-p', action='store',dest="process")
+parser.add_argument('-g', action='store',dest="layout")
+parser.add_argument('-s', action='store',dest="sch")
+parser.add_argument('-n', action='store',dest="top")
+parser.add_argument('-r', action='store',dest="rtl")
+parser.add_argument('-d', action='store',dest="defpath")
+parser.add_argument('-v', action='store',dest="power")
+
+#parser.add_argument('-h', '--help', type=str)
+
+args = parser.parse_args()
+print(args.tech)
+print(args.process)
+print(args.layout)
+print(args.sch)
+print(args.top)
+print(args.rtl)
+print(args.defpath)
+print(args.power)
+
+class code:
+    def __init__(self):
+    #check if 5 sub-directories exist or not. If they exist, then remove the directory and the files inside
+      if os.path.exists("./pwr") & os.path.exists("./pnr") & os.path.exists("./drc") & os.path.exists("./lvs") & os.path.exists("./syn"):
+          print "Paths exists, start removing!!!"
+          shutil.rmtree("pwr/")
+          shutil.rmtree("pnr/")
+          shutil.rmtree("lvs/")
+          shutil.rmtree("syn/")
+          shutil.rmtree("drc/")
+          print "5 sub-directories are removed!!!"
+      else:
+          print "First build, no directory exists!!!"
+    def create_path(self):  
+    #create 5 sub-directories under current working directory
+      os.mkdir( "./pwr", 0755 );
+      os.mkdir( "./pnr", 0755 );
+      os.mkdir( "./drc", 0755 );
+      os.mkdir( "./lvs", 0755 );
+      os.mkdir( "./syn", 0755 );
+      print "5 sub-directories are created!!!";
+     
+    #create pnr directory and run file
+    def pwr(self):
+      #created sub-directory
+      os.chdir("pwr/");
+      #create/open run file
+      power = open("pwr.txt", "w");
+     
+      #write run file
+      power.write("power_grid -lef "/A/B/C/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/physical/tech.lef /A/B/C/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/physical/macro.lef -gds "./test.gds" -sch "./test.sch" -dotlib "/home/NETLAB/ABC/Encounter/FEU_4_1/lib/fast.lib /home/NETLAB/ABC/Encounter/FEU_4_1/lib/pllclk_fast.lib /home/NETLAB/ABC/Encounter/FEU_4_1/lib/ram_128x16A_fast_syn.lib /NETLAB/ABC/Encounter/FEU_4_1/lib/ram_256x16A_fast_syn.lib /home/NETLAB/ABC/Encounter/FEU_4_1/lib/rom_512x16A_fast_syn.lib /home/NETLAB/ABC/Encounter/FEU_4_1/lib/tpz973gbc-lite_fast.lib" -vdd "+results.power_value+" -sdc "/D/E/F/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/fast/timing/tapeout.sdc" -def ""+results.DEF_full_path+""");
+     
+      #close run file
+      power.close();
+     
+      #do back to current directory
+      os.chdir("../");
+     
+      print "pwr/run file is generated"
+    #create pnr directory and run file
+    def pnr(self):
+      #created sub-directory
+      os.chdir("pnr/");
+      #create/open run file
+      place_route = open("dtmf.conf", "w");
+     
+      #write run file   
+      place_route.write("set rda_IASICt(ui_qxconf_file) {}nset rda_IASICt(flip_first) {1}nset rda_IASICt(double_back) {1}nset rda_IASICt(ui_timingcon_file)n"/D/E/F/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/fast/timing/tapeout.sdc"nset rda_IASICt(assign_buffer) {0}nset rda_IASICt(ui_timelib,min)"/home/NETLAB/ABC/Encounter/FEU_4_1/lib/fast.libn/home/NETLAB/ABC/Encounter/FEU_4_1/lib/pllclk_fast.libn/home/NETLAB/ABC/Encounter/FEU_4_1/lib/ram_128x16A_fast_syn.libn/home/NETLAB/ABC/Encounter/FEU_4_1/lib/ram_256x16A_fast_syn.libn/home/NETLAB/ABC/Encounter/FEU_4_1/lib/rom_512x16A_fast_syn.libn/home/NETLAB/ABC/Encounter/FEU_4_1/lib/tpz973gbc-lite_fast.lib"nset rda_IASICt(ui_pg_connections) ""nset rda_IASICt(ui_gen_footprint) {1}nset rda_IASICt(ui_leffile) "/A/B/C/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/physical/tech.lef /A/B/C/“+results.Foundary+”/“+results.Technology+”/"+results.Process+"/physical/macro.lef""")
+     
+      #close run file
+      place_route.close();
+     
+      #go back to current directory
+      os.chdir("../");
+      print "pnr/run file is generated"
+   
+    #create lvs directory and run file
+    def lvs(self):
+      #created sub-directory
+      os.chdir("lvs/");
+      #create/open run file
+      lvs = open("lvs.txt", "w");
+      #write run file
+      lvs.write("lvs -top "+results.top_cell_name+" -gds "+results.layout_full_path+" -sch "+results.sch_full_path+" -deck /A/B/C/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/lvs/tapeout.lvs")
+      #close run file
+      lvs.close();
+      #do back to current directory
+      os.chdir("../");
+      print "lvs/run file is generated"
+    #create syn directory and run file
+    def syn(self):
+     
+      #created sub-directory
+      os.chdir("syn/");
+     
+      #create/open run file
+      synthesis = open("syn.txt", "w");
+     
+      #write run file
+      synthesis.write("include /ee/setup/synopsys/synopsys_setup_ASIC018.incnread -f verilog "+results.RTL_verilog_full_path+"ncurrent_design = "+results.top_cell_name+"nlinkncompilencreate_schematicnplot -output "+results.top_cell_name+".psnwrite -f verilog -o "+results.top_cell_name+".vs -hierarchynexit")
+     
+      #close run file
+      synthesis.close();
+     
+      #do back to current directory
+      os.chdir("../");
+      print "syn/run file is generated"
+    #create drc directory and run file
+    def drc(self):
+      #created sub-directory
+      os.chdir("drc/");
+      #create/open run file
+      dr_check = open("drc.txt", "w");
+      #write run file
+      dr_check.write("drc -top_cell "+results.top_cell_name+" -gds "+results.layout_full_path+" -deck /A/B/C/"+results.Foundary+"/"+results.Technology+"/"+results.Process+"/drc/tapeout.drc")
+     
+      #close run file
+      dr_check.close();
+     
+      #do back to current directory
+      os.chdir("../");
+      print "drc/run file is generated"
+#Execution code 
+x = code();
+x.create_path();
+x.pwr();
+x.pnr();
+x.lvs();
+x.syn();
+x.drc();
