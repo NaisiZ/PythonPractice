@@ -14,3 +14,13 @@ def checkio(number):
         print (number)
     #replace this for solution
     return str(number)
+
+#2 index_power
+
+def index_power(array, n):
+    if n==0:
+        return (1)
+    elif len(array) <= n:
+        return (-1)
+    else:
+        return (array[n]**n)
