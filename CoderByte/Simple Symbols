@@ -4,7 +4,7 @@ def SimpleSymbols(str):
         if str[i].isalpha():
             if str[i - 1] != '+' or str[i + 1] != "+":
                 return "false"
-        return "true"
+    return "true"
 print(SimpleSymbols("+d+=3=+s+"))
 
 
