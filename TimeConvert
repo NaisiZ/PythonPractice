@@ -1,0 +1,9 @@
+def TimeConvert(num): 
+    min=num
+    if (num>60):
+        return str(num/60)+":"+str(min%60)
+    else:
+        return str(0)+":"+str(num)
+    
+# keep this function call here  
+print TimeConvert(8)
