@@ -1,0 +1,29 @@
+"""
+Here's a more complex example where we are grouping the cars by number of cylinder, and finding the average cty mpg for each group.
+"""
+CtyMpgByCyl = []
+
+for c in cylinders: # iterate over all the cylinder levels
+    summpg = 0
+    cyltypecount = 0
+    for d in mpg: # iterate over all dictionaries
+        if d['cyl'] == c: # if the cylinder level type matches,
+            summpg += float(d['cty']) # add the cty mpg
+            cyltypecount += 1 # increment the count
+    CtyMpgByCyl.append((c, summpg / cyltypecount)) # append the tuple ('cylinder', 'avg mpg')
+
+CtyMpgByCyl.sort(key=lambda x: x[0])
+CtyMpgByCyl
+CtyMpgByCyl = []CtyMpgByCyl = []
+
+for c in cylinders: # iterate over all the cylinder levels
+    summpg = 0
+    cyltypecount = 0
+    for d in mpg: # iterate over all dictionaries
+        if d['cyl'] == c: # if the cylinder level type matches,
+            summpg += float(d['cty']) # add the cty mpg
+            cyltypecount += 1 # increment the count
+    CtyMpgByCyl.append((c, summpg / cyltypecount)) # append the tuple ('cylinder', 'avg mpg')
+
+CtyMpgByCyl.sort(key=lambda x: x[0])
+CtyMpgByCyl
