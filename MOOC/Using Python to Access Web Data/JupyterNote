@@ -27,3 +27,16 @@ for c in cylinders: # iterate over all the cylinder levels
 
 CtyMpgByCyl.sort(key=lambda x: x[0])
 CtyMpgByCyl
+
+
+store1 = [10.00, 11.00, 12.24, 2.34]
+store2 = [9.00, 11.10, 12.34, 2.01]
+cheapest = map(min, store1, store2)
+cheapest
+#<map at 0x7fc5a807c518>
+for item in cheapest:
+    print(item)
+#   9.0
+#   11.0
+#   12.24
+#   2.01
