@@ -1,3 +1,12 @@
+import csv
+
+%precision 2
+
+with open('mpg.csv') as csvfile:
+    mpg = list(csv.DictReader(csvfile))
+    
+mpg[:3] # The first three dictionaries in our list.
+
 """
 Here's a more complex example where we are grouping the cars by number of cylinder, and finding the average cty mpg for each group.
 """
