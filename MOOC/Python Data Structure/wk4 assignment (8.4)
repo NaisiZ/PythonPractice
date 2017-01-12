@@ -8,7 +8,7 @@ for line in fh:
         if word in lst:
             continue
         else:
-       		lst.append(word)
+       	    lst.append(word)
 lst.sort()    
 print lst
     
