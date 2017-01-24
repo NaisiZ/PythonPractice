@@ -1,0 +1,10 @@
+name = raw_input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+counts={}
+for line in handle:
+    if not line.startwith("From"):continue
+    else:
+        line=line.split(" ")
+		counts[line]=line.get(line,1)
+print line,courts
