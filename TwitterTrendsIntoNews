@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 17 19:10:02 2019
+
+@author: naisizhen
+"""
+
+import tweepy as tweet
+import yweather
+from newsapi import NewsApiClient
+consumer_key='rI2OvPJTeCtkCbJ8xDj3FqxBA'
+consumer_secret='Dcnsj1xteglnp0wGe38GjcCOujJiSgHtHzF7QJ5ZtwC7aqYia9'
+access_token_key='1126733105979478016-fbwIJyJraFD8QmPVZSGkeD1fS4P8W7'
+access_token_secret='wwiUyooLy169CfH7w5JchfAAYzGiAXG6SGs3TKZQBMLPC'
+newsapi_key= 'dbd93cb61de94576b09be062f59e14dd'
+
+auth = tweet.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token_key, access_token_secret)
+api = tweet.API(auth)
+newsapi = NewsApiClient(api_key = newsapi_key)
+
+client = yweather.Client()
+woeidNova = client.fetch_woeid('Canada')
+#print(woeidNova)
+
+trends_raw = api.trends_place(woeidNova)
+#print(trends_raw)
+
+trends_records = trends_raw[0]['trends']
+#print(trends_records)
+#print(type(trends_records))
+nameList = [record['name'] for record in trends_records]
+#print(nameList)
+
+trendName = [i[1:] if i[0]=='#' else i for i in nameList] #remove "#" if "#" used in trend tag
+#print(noHarshTag)
+
+for num in range(0,10):
+    topic_raw = nameList[num]
+    if topic_raw[0] =="#":
+        topic = topic_raw[1:]
+    else:
+        topic = topic_raw
+    print(topic)
+    topic_headline = newsapi.get_top_headlines(q=topic,language='en')
+print(topic_headline)
